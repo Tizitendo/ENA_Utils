@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<LangVersion>preview</LangVersion>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BepInEx.Analyzers" Version="1.0.*">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+
+		<PackageReference Include="BepInEx.Core" Version="5.4.21" />
+		<!-- <PackageReference Include="MonoDetour" Version="0.7.15" />
+		<PackageReference Include="MonoDetour.HookGen" Version="0.7.14" /> -->
+		<PackageReference Include="UnityEngine" Version="5.6.1" />
+		<PackageReference Include="UnityEngine.CoreModule" Version="2020.3.1" />
+
+		<PackageReference Include="UnityEngine.Modules" Version="6000.5.10" IncludeAssets="compile" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="MMHOOK">
+	    <HintPath>..\..\references\MMHOOK_JoelG.ENA4.dll</HintPath>
+	  </Reference>
+	  <Reference Include="ENA">
+	    <HintPath>..\..\references\JoelG.ENA4-nstrip.dll</HintPath>
+	  </Reference>
+	  <Reference Include="Rewired_Core">
+	    <HintPath>..\..\references\Rewired_Core-nstrip.dll</HintPath>
+	  </Reference>
+	  <Reference Include="LMirman_VespaIO">
+	    <HintPath>..\..\references\LMirman.VespaIO-nstrip.dll</HintPath>
+	  </Reference>
+	  <Reference Include="LMirman_VespaIO_LLAPI">
+	    <HintPath>..\..\references\LMirman.VespaIO.LLAPI-nstrip.dll</HintPath>
+	  </Reference>
+	  <Reference Include="Addressables">
+	    <HintPath>..\..\references\Unity.Addressables.dll</HintPath>
+	  </Reference>
+	  <Reference Include="ResourceManager">
+	    <HintPath>..\..\references\Unity.ResourceManager.dll</HintPath>
+	  </Reference>
+	  <Reference Include="UnityEngine_CoreModule">
+	    <HintPath>..\..\references\UnityEngine.CoreModule.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<!-- Window Build -->
+		<!-- <Exec Command="xcopy /Y /s /e &quot;$(TargetPath)&quot; &quot;$(ProjectDir)..\Thunderstore\plugins&quot;&#xD;&#xA;&#xD;&#xA;" />
+		<Exec Command="rmdir /S /Q &quot;C:\Users\TIZIA\AppData\Roaming\com.kesomannen.gale\riskofrain2\profiles\modding\BepInEx\plugins\0n_x-testmod&quot;&#xD;&#xA;&#xD;&#xA;" />
+		<Exec Command="mkdir &quot;C:\Users\TIZIA\AppData\Roaming\com.kesomannen.gale\riskofrain2\profiles\modding\BepInEx\plugins\0n_x-testmod&quot;&#xD;&#xA;&#xD;&#xA;" />
+		<Exec Command="xcopy /Y /s /e &quot;$(ProjectDir)..\Thunderstore\plugins&quot; &quot;C:\Users\TIZIA\AppData\Roaming\com.kesomannen.gale\riskofrain2\profiles\modding\BepInEx\plugins\0n_x-testmod&quot;" /> -->
+		
+		<!-- Linux Build -->
+		<Exec Command="rsync -avz $(TargetPath) $(ProjectDir)../Thunderstore/plugins" />
+		<Exec Command="rm -rf /home/tizian/.local/share/com.kesomannen.gale/ena-dream-bbq/profiles/Default/BepInEx/plugins/testmod" />
+		<Exec Command="mkdir /home/tizian/.local/share/com.kesomannen.gale/ena-dream-bbq/profiles/Default/BepInEx/plugins/testmod" />
+		<Exec Command="rsync -avz $(ProjectDir)../Thunderstore /home/tizian/.local/share/com.kesomannen.gale/ena-dream-bbq/profiles/Default/BepInEx/plugins/testmod" />
+	</Target>
+</Project>

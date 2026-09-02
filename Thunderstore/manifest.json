@@ -1,9 +1,9 @@
 ﻿{
 	"name": "ENA_Utils",
-	"version_number": "1.0.7",
+	"version_number": "1.0.0",
 	"website_url": "https://github.com/Tizitendo/ENA_Utils",
 	"description": "Very barebones Utils",
 	"dependencies": [
-		"RiskofThunder-HookGenPatcher-1.2.3"
+		"0n_x-HookGenPatcher-1.2.10"
 	]
 }
